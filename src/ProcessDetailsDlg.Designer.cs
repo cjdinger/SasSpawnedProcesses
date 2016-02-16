@@ -41,7 +41,7 @@
             this.pgProcess.Location = new System.Drawing.Point(13, 28);
             this.pgProcess.Name = "pgProcess";
             this.pgProcess.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
-            this.pgProcess.Size = new System.Drawing.Size(373, 295);
+            this.pgProcess.Size = new System.Drawing.Size(373, 195);
             this.pgProcess.TabIndex = 1;
             this.pgProcess.ToolbarVisible = false;
             // 
@@ -58,11 +58,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(398, 335);
+            this.ClientSize = new System.Drawing.Size(398, 235);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pgProcess);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(414, 273);
             this.Name = "ProcessDetailsDlg";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

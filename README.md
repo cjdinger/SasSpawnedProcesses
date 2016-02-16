@@ -8,3 +8,13 @@ by [Chris Hemedinger](http://support.sas.com/hemedinger).
 
 You can read more about how to use the task in this blog post:
 [Using PROC IOMOPERATE to list and stop your SAS sessions](http://blogs.sas.com/content/sasdummy/using-proc-iomoperate/)
+
+## Screenshots
+
+#### Basic view of task connected to SAS Object Spawner
+
+![Screenshot of the task](/images/spawnedprocesses.png)
+
+#### What you see when you click **Show Details**
+
+![Screenshot of the properties window](/images/processprops.png)
