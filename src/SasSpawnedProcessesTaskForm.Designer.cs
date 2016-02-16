@@ -41,13 +41,15 @@
             this.btnConnect = new System.Windows.Forms.Button();
             this.listProcesses = new System.Windows.Forms.ListView();
             this.chPID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chNode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chAccount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chUptime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chUUID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnKill = new System.Windows.Forms.Button();
-            this.chType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnDetails = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmbServers = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,11 +57,11 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(647, 369);
+            this.btnCancel.Location = new System.Drawing.Point(647, 469);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(69, 23);
-            this.btnCancel.TabIndex = 3;
+            this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Close";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -143,10 +145,10 @@
             this.groupBox1.Controls.Add(this.txtUser);
             this.groupBox1.Controls.Add(this.txtPort);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 43);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(704, 119);
-            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "SAS Object Spawner details";
             // 
@@ -173,10 +175,10 @@
             this.chUptime,
             this.chUUID});
             this.listProcesses.FullRowSelect = true;
-            this.listProcesses.Location = new System.Drawing.Point(12, 151);
+            this.listProcesses.Location = new System.Drawing.Point(12, 178);
             this.listProcesses.Name = "listProcesses";
-            this.listProcesses.Size = new System.Drawing.Size(704, 213);
-            this.listProcesses.TabIndex = 1;
+            this.listProcesses.Size = new System.Drawing.Size(704, 286);
+            this.listProcesses.TabIndex = 3;
             this.listProcesses.UseCompatibleStateImageBehavior = false;
             this.listProcesses.View = System.Windows.Forms.View.Details;
             this.listProcesses.SelectedIndexChanged += new System.EventHandler(this.listProcesses_SelectedIndexChanged);
@@ -186,6 +188,11 @@
             // 
             this.chPID.Text = "Process ID";
             this.chPID.Width = 103;
+            // 
+            // chType
+            // 
+            this.chType.Text = "Type";
+            this.chType.Width = 106;
             // 
             // chNode
             // 
@@ -210,34 +217,51 @@
             // btnKill
             // 
             this.btnKill.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnKill.Location = new System.Drawing.Point(12, 368);
+            this.btnKill.Location = new System.Drawing.Point(12, 468);
             this.btnKill.Name = "btnKill";
             this.btnKill.Size = new System.Drawing.Size(163, 23);
-            this.btnKill.TabIndex = 2;
+            this.btnKill.TabIndex = 4;
             this.btnKill.Text = "End SAS process";
             this.btnKill.UseVisualStyleBackColor = true;
             this.btnKill.Click += new System.EventHandler(this.btnKill_Click);
             // 
-            // chType
-            // 
-            this.chType.Text = "Type";
-            this.chType.Width = 106;
-            // 
             // btnDetails
             // 
-            this.btnDetails.Location = new System.Drawing.Point(181, 367);
+            this.btnDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDetails.Location = new System.Drawing.Point(181, 468);
             this.btnDetails.Name = "btnDetails";
             this.btnDetails.Size = new System.Drawing.Size(115, 23);
-            this.btnDetails.TabIndex = 4;
+            this.btnDetails.TabIndex = 5;
             this.btnDetails.Text = "Show Details...";
             this.btnDetails.UseVisualStyleBackColor = true;
             this.btnDetails.Click += new System.EventHandler(this.btnDetails_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "SAS server to use:";
+            // 
+            // cmbServers
+            // 
+            this.cmbServers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbServers.FormattingEnabled = true;
+            this.cmbServers.Location = new System.Drawing.Point(114, 10);
+            this.cmbServers.Name = "cmbServers";
+            this.cmbServers.Size = new System.Drawing.Size(182, 21);
+            this.cmbServers.TabIndex = 1;
+            this.cmbServers.SelectedIndexChanged += new System.EventHandler(this.cmbServers_SelectedIndexChanged);
             // 
             // SasSpawnedProcessesTaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(725, 402);
+            this.ClientSize = new System.Drawing.Size(725, 502);
+            this.Controls.Add(this.cmbServers);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnDetails);
             this.Controls.Add(this.btnKill);
             this.Controls.Add(this.listProcesses);
@@ -251,10 +275,11 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "View SAS Processes";
+            this.Text = "View Spawned SAS Processes";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -280,5 +305,7 @@
         private System.Windows.Forms.ColumnHeader chUUID;
         private System.Windows.Forms.ColumnHeader chType;
         private System.Windows.Forms.Button btnDetails;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cmbServers;
     }
 }

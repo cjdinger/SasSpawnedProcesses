@@ -33,6 +33,8 @@ namespace SAS.Tasks.SASProcesses
         // initialize the form with the values from the settings
         protected override void OnLoad(EventArgs e)
         {
+            LoadServers();
+
             // use the Toolkit class to get details of Metadata profile
             SAS.Tasks.Toolkit.Helpers.SasMetadataProfile prof = SAS.Tasks.Toolkit.Helpers.SasMetadataProfile.GetActiveProfile();
             txtHost.Text = prof.Host;
@@ -49,6 +51,22 @@ namespace SAS.Tasks.SASProcesses
             UpdateKillButton();
 
             base.OnLoad(e);
+        }
+
+        /// <summary>
+        /// Initialize the combobox with servers
+        /// </summary>
+        private void LoadServers()
+        {
+            cmbServers.BeginUpdate();
+            cmbServers.Items.Clear();
+            cmbServers.DisplayMember = "Name";
+            foreach (SasServer s in SasServer.GetSasServers())
+            {
+                cmbServers.Items.Add(s);
+            }
+            cmbServers.Text = Consumer.AssignedServer;
+            cmbServers.EndUpdate();
         }
 
         // to hold current cursor while processing, showing WaitCursor
@@ -152,7 +170,8 @@ namespace SAS.Tasks.SASProcesses
         {
             listProcesses.BeginUpdate();
             listProcesses.Items.Clear();
-             SasServer s = new SasServer(Consumer.AssignedServer);
+            SasServer s = new SasServer(Consumer.AssignedServer);
+            string thisProcess = s.GetSasMacroValue("SYSJOBID");
             using (OleDbConnection conn = s.GetOleDbConnection())
             {
                 try
@@ -187,6 +206,7 @@ namespace SAS.Tasks.SASProcesses
                         li.SubItems.Add(proc.Owner);
                         li.SubItems.Add(proc.StartTime);
                         li.SubItems.Add(proc.UUID);
+                        if (proc.PID.Trim() == thisProcess.Trim()) li.BackColor = Color.LightGoldenrodYellow;
                         listProcesses.Items.Add(li);
                     }
                 }
@@ -208,11 +228,13 @@ namespace SAS.Tasks.SASProcesses
         {
             if (listProcesses.SelectedItems.Count == 1)
             {
+                btnDetails.Enabled = true;
                 btnKill.Enabled = true;
                 btnKill.Text = string.Format("End SAS process {0}", listProcesses.SelectedItems[0].Text);
             }
             else
             {
+                btnDetails.Enabled = false;
                 btnKill.Text = "<select a process>";
                 btnKill.Enabled = false;
             }
@@ -225,6 +247,17 @@ namespace SAS.Tasks.SASProcesses
         {
             if (listProcesses.SelectedItems.Count == 1)
             {
+                SasServer serv = new SasServer(Consumer.AssignedServer);
+                string thisProcess = serv.GetSasMacroValue("SYSJOBID");
+                SasProcess proc = (listProcesses.SelectedItems[0].Tag as SasProcess);
+                if (proc.PID.Trim() == thisProcess.Trim())
+                {
+                    // confirm before killing the current active SAS session
+                    if (DialogResult.No == 
+                        MessageBox.Show("The selected process is your active SAS session.  Do you still want to stop it?", 
+                        "Warning", MessageBoxButtons.YesNo))
+                        return;
+                }
                 string log = "";
                 string UUID = (listProcesses.SelectedItems[0].Tag as SasProcess).UUID;
                 string program = string.Format(killProgram, UUID );
@@ -257,6 +290,11 @@ namespace SAS.Tasks.SASProcesses
 
                 UpdateKillButton();
             }
+        }
+
+        private void cmbServers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Consumer.AssignedServer = (cmbServers.SelectedItem as SasServer).Name;
         }
     }
 }
