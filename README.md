@@ -6,7 +6,7 @@ Written by [Chris Hemedinger](http://blogs.sas.com/content/sasdummy) as an examp
 _Custom Tasks for SAS Enterprise Guide using Microsoft .NET_ 
 by [Chris Hemedinger](http://support.sas.com/hemedinger).
 
-You can read more about how to use the task in this blog post:
+You can read more about how to use the task in these blog posts:
 
 * [A custom task to list and stop your SAS sessions](http://blogs.sas.com/content/sasdummy/proc-iomoperate-custom-task/)
 
