@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ReferencePath>C:\Projects\CustomTasks\SasSpawnedProcesses\libs_4.3\;c:\program files\sashome\x86\sasenterpriseguide\4.3\;c:\program files\sashome\x86\sasenterpriseguide\5.1\;c:\program files\sashome\sasenterpriseguide\5.1\</ReferencePath>
+  </PropertyGroup>
+</Project>

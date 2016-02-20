@@ -135,7 +135,16 @@ namespace SAS.Tasks.SASProcesses
                     }
                     else
                     {
-                        MessageBox.Show("An error occurred while trying to retrieve the list of processes.", "Error");
+                        // ERROR - provide option to show the SAS log
+                        if (DialogResult.Yes ==
+                        MessageBox.Show("An error occurred while trying to retrieve the list of processes.  Would you like to view the error log?",
+                            "Error",
+                            MessageBoxButtons.YesNo))
+                        {
+                            SAS.Tasks.Toolkit.Controls.SASLogViewDialog logView = 
+                                new SASLogViewDialog("Error log", "PROC IOMOPERATE log:", args.Log);
+                            logView.ShowDialog(this);
+                        };
                     }
                     
                 }
@@ -210,7 +219,10 @@ namespace SAS.Tasks.SASProcesses
                         listProcesses.Items.Add(li);
                     }
                 }
-                catch { }
+                catch 
+                {
+                    MessageBox.Show("An error occurred while trying to retrieve the list of spawned processes.", "Cannot retrieve processes");
+                }
                 finally
                 {
                    conn.Close();
@@ -262,9 +274,31 @@ namespace SAS.Tasks.SASProcesses
                 string UUID = (listProcesses.SelectedItems[0].Tag as SasProcess).UUID;
                 string program = string.Format(killProgram, UUID );
                 SasSubmitter s = new SasSubmitter(Consumer.AssignedServer);
+
+                if (s.IsServerBusy())
+                {
+                   MessageBox.Show(string.Format("The server {0} is busy; cannot end selected process.", Consumer.AssignedServer));
+                    // bail out, return control to UI
+                   return;
+                }
+
+                // server is available, so submit code synchronously
                 bool success = s.SubmitSasProgramAndWait(program, out log);
                 if (success) 
                     RefreshProcesses();
+                else
+                {
+                    // ERROR - provide option to show the SAS log
+                    if (DialogResult.Yes ==
+                    MessageBox.Show("An error occurred while trying to end the selected process.  Would you like to view the error log?",
+                        "Error",
+                        MessageBoxButtons.YesNo))
+                    {
+                        SAS.Tasks.Toolkit.Controls.SASLogViewDialog logView =
+                            new SASLogViewDialog("Error log", "PROC IOMOPERATE log:", log);
+                        logView.ShowDialog(this);
+                    };
+                }
             }
         }
 
